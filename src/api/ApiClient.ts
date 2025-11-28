@@ -1,4 +1,4 @@
-export type FormStatus = "READY" | "SUBMITTING" | "FINISHED" | "ERROR"
+export type FormStatus = "READY" | "SUBMITTING" | "FINISHED" | "ERROR";
 
 export interface TaskRequest {
   title: string;
@@ -6,6 +6,22 @@ export interface TaskRequest {
   status?: string;
   dueTime: Date;
 }
+
+export interface Task {
+  id: number;
+  title: string;
+  description?: string;
+  status?: string;
+  dueTime: string;
+}
+
+export const emptyTask = {
+  id: 0,
+  title: "",
+  description: "",
+  status: "",
+  dueTime: "",
+};
 
 export async function addTask(task: TaskRequest) {
   const response = await fetch(`http://localhost:5200/tasks`, {

@@ -1,12 +1,16 @@
 import { useState, type JSX } from "react";
 import {
   type FormStatus,
+  type Task,
   addTask,
+  emptyTask,
 } from "../../api/ApiClient";
 import { useForm } from "react-hook-form";
+import { TaskDetails } from "../TaskDetails/TaskDetails";
 
 export function AddTask(): JSX.Element {
   const [formStatus, setFormStatus] = useState<FormStatus>("READY");
+  const [createdTask, setCreatedTask] = useState<Task>(emptyTask);
 
   const {
     register,
@@ -37,7 +41,8 @@ export function AddTask(): JSX.Element {
         dueTime: new Date(data.dueTime),
       };
       setFormStatus("SUBMITTING");
-      await addTask(taskData);
+      const task = await addTask(taskData);
+      setCreatedTask(task);
       setFormStatus("FINISHED");
       reset();
     } catch (error) {
@@ -93,6 +98,19 @@ export function AddTask(): JSX.Element {
           <p>Success, task has been created. Please see details below.</p>
         )}
       </form>
+      {createdTask.id !== 0 && (
+        <section>
+          <button
+            onClick={() => {
+              setCreatedTask(emptyTask);
+              setFormStatus("READY");
+            }}
+          >
+            Dismiss
+          </button>
+          <TaskDetails task={createdTask} />
+        </section>
+      )}
     </section>
   );
 }
