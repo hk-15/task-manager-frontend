@@ -13,5 +13,6 @@ This is a React TypeScript frontend for interacting with the Task Manager backen
 * Run `npm run lint` to run the linter.
 
 ## Technologies used
-- [React Bootstrap](https://react-bootstrap.netlify.app/docs/getting-started/introduction/)
 - [Jest Testing framework](https://jestjs.io/)
+- [prettier](https://prettier.io/)
+- [sass](https://sass-lang.com/)
