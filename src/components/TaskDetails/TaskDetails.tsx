@@ -1,5 +1,6 @@
 import { type JSX } from "react";
 import { type Task } from "../../api/ApiClient";
+import "./TaskDetails.scss";
 
 interface Props {
   task: Task;
@@ -7,7 +8,7 @@ interface Props {
 
 export function TaskDetails(props: Props): JSX.Element {
   return (
-    <table>
+    <table className="details-table">
       <tbody>
         <tr>
           <td>Title</td>

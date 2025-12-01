@@ -7,6 +7,7 @@ import {
 } from "../../api/ApiClient";
 import { useForm } from "react-hook-form";
 import { TaskDetails } from "../TaskDetails/TaskDetails";
+import './AddTask.scss';
 
 export function AddTask(): JSX.Element {
   const [formStatus, setFormStatus] = useState<FormStatus>("READY");
@@ -52,7 +53,8 @@ export function AddTask(): JSX.Element {
   }
 
   return (
-    <section>
+    <section className="add-task-section">
+      <h2>Add a new task</h2>
       <form onSubmit={handleSubmit(submitForm)}>
         <label htmlFor="title">
           Title *
@@ -60,7 +62,10 @@ export function AddTask(): JSX.Element {
             id="title"
             type="text"
             {...register("title", {
-              required: true,
+              required: {
+                value: true,
+                message: "Please enter a title."
+              },
               pattern: {
                 value: /^.{1,100}/,
                 message: "Title must be between 1 and 100 characters long.",
@@ -81,12 +86,15 @@ export function AddTask(): JSX.Element {
             id="dueTime"
             type="datetime-local"
             {...register("dueTime", {
-              required: true,
+              required: {
+                value: true,
+                message: "Please enter a due date and time."
+              },
             })}
           />
         </label>
-        {errors.title && (
-          <span className="form-error">{errors.title.message}</span>
+        {errors.dueTime && (
+          <span className="form-error">{errors.dueTime.message}</span>
         )}
         <button disabled={formStatus === "SUBMITTING"} type="submit">
           Add task
@@ -100,6 +108,7 @@ export function AddTask(): JSX.Element {
       </form>
       {createdTask.id !== 0 && (
         <section>
+          <TaskDetails task={createdTask} />
           <button
             onClick={() => {
               setCreatedTask(emptyTask);
@@ -108,7 +117,6 @@ export function AddTask(): JSX.Element {
           >
             Dismiss
           </button>
-          <TaskDetails task={createdTask} />
         </section>
       )}
     </section>

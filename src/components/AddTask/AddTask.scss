@@ -1,0 +1,17 @@
+.add-task-section {
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input,
+        textarea {
+            margin: 0 1rem;
+        }
+    }
+}
